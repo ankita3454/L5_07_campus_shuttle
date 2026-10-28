@@ -13,6 +13,7 @@ routes = {"R1": {"name": "Main Gate - Library", "trips": []},
 MIN_CAPACITY = 10
 DRIVER_ROSTER = {"R1": "Prakash", "R2": "Leela", "R3": "Imran"}
 
+
 def add_trip_log(route_id, passenger_count, logs=None):
     """Record a trip for a route and return the trip log list."""
     if logs is None:
@@ -27,9 +28,11 @@ def add_trip_log(route_id, passenger_count, logs=None):
     logs.append(f"{datetime.now()}: {route_id} carried {passenger_count}")
     return logs
 
+
 def remove_route(route_id):
     """Delete a route from the fleet."""
     del routes[route_id]
+
 
 def average_load(route_id):
     """Return the mean passengers per trip, or None if no trips."""
@@ -37,6 +40,7 @@ def average_load(route_id):
     if not trips:
         return None
     return sum(trips) / len(trips)
+
 
 def underused_routes():
     """Return route ids whose average load is below MIN_CAPACITY."""
@@ -47,9 +51,11 @@ def underused_routes():
             flagged.append(route_id)
     return flagged
 
+
 def assign_driver(route_id):
     """Return the rostered driver for a route."""
     return DRIVER_ROSTER.get(route_id, "Tom")
+
 
 def sync_fleet_data(path="fleet.json"):
     """Write fleet data to disk and reload it into the routes dict."""
@@ -59,6 +65,7 @@ def sync_fleet_data(path="fleet.json"):
         loaded = json.load(handle)
     routes.clear()
     routes.update(loaded)
+
 
 def main():
     """Run a short demo of the shuttle tracker."""
@@ -82,6 +89,7 @@ def main():
         print("Trips on", choice, ":", routes[choice]["trips"])
     else:
         print("No such route:", choice)
+
 
 if __name__ == "__main__":
     main()
